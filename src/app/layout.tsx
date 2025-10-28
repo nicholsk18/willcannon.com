@@ -9,33 +9,35 @@ import { GoogleAnalytics } from "@/app/components/google-analytics"
 export const metadata: Metadata = {
   metadataBase: new URL('https://willcannon.com'),
   title: {
-    default: 'Will Cannon | Professional Golfer',
+    default: 'Will Cannon | Professional Golfer - Korn Ferry Tour',
     template: '%s | Will Cannon'
   },
-  description: 'Professional golfer competing on the Korn Ferry Tour. Follow my competitive journey, tournament results, and schedule.',
-  keywords: ['Will Cannon', 'Professional Golfer', 'Korn Ferry Tour', 'PGA Tour', 'Golf', 'Tournament Results', 'Golf Schedule'],
-  authors: [{ name: 'Will Cannon' }],
+  description: 'Will Cannon is a professional golfer competing on the Korn Ferry Tour. Follow his competitive journey, tournament results, schedule, and career achievements in professional golf.',
+  keywords: ['Will Cannon', 'Professional Golfer', 'Korn Ferry Tour', 'PGA Tour', 'Golf', 'Tournament Results', 'Golf Schedule', 'Professional Golf Career', 'Golf Tournaments', 'Golf Sponsorship'],
+  authors: [{ name: 'Will Cannon', url: 'https://willcannon.com' }],
   creator: 'Will Cannon',
+  publisher: 'Will Cannon',
+  applicationName: 'Will Cannon Golf',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://willcannon.com',
     siteName: 'Will Cannon - Professional Golfer',
-    title: 'Will Cannon | Professional Golfer',
-    description: 'Professional golfer competing on the Korn Ferry Tour. Follow my competitive journey, tournament results, and schedule.',
+    title: 'Will Cannon | Professional Golfer - Korn Ferry Tour',
+    description: 'Will Cannon is a professional golfer competing on the Korn Ferry Tour. Follow his competitive journey, tournament results, schedule, and career achievements.',
     images: [
       {
         url: '/static/banner-home.png',
         width: 1200,
         height: 630,
-        alt: 'Will Cannon - Professional Golfer',
+        alt: 'Will Cannon - Professional Golfer on the Korn Ferry Tour',
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Will Cannon | Professional Golfer',
-    description: 'Professional golfer competing on the Korn Ferry Tour. Follow my competitive journey, tournament results, and schedule.',
+    title: 'Will Cannon | Professional Golfer - Korn Ferry Tour',
+    description: 'Will Cannon is a professional golfer competing on the Korn Ferry Tour. Follow his competitive journey, tournament results, and schedule.',
     images: ['/static/banner-home.png'],
   },
   robots: {
@@ -49,6 +51,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'google-site-verification-code', // Add your actual verification code
+  },
+  category: 'Sports',
 }
 
 const playfair = Playfair_Display({

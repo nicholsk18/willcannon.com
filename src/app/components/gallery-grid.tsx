@@ -33,7 +33,7 @@ export function GalleryGrid() {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const observerTarget = useRef<HTMLDivElement>(null)
 
-  const fetchImages = async (page: number, category: string, reset: boolean = false) => {
+  const fetchImages = useCallback(async (page: number, category: string, reset: boolean = false) => {
     if (isLoading) return
     
     setIsLoading(true)
@@ -55,13 +55,13 @@ export function GalleryGrid() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [isLoading])
 
   useEffect(() => {
     setImages([])
     setCurrentPage(1)
     fetchImages(1, selectedCategory, true)
-  }, [selectedCategory])
+  }, [selectedCategory, fetchImages])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,7 +85,7 @@ export function GalleryGrid() {
         observer.unobserve(currentTarget)
       }
     }
-  }, [currentPage, hasMore, isLoading, selectedCategory])
+  }, [currentPage, hasMore, isLoading, selectedCategory, fetchImages])
 
   useEffect(() => {
     if (lightboxImage) {
@@ -190,6 +190,8 @@ export function GalleryGrid() {
                   fill
                   className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  quality={80}
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-sage-900/80 via-sage-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                   <p className="text-white font-body font-semibold text-lg drop-shadow-lg">
@@ -251,6 +253,8 @@ export function GalleryGrid() {
                 fill
                 className="object-contain rounded-2xl"
                 sizes="90vw"
+                quality={90}
+                priority
               />
               
               <button

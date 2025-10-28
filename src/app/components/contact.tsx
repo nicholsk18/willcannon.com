@@ -73,14 +73,18 @@ export function Contact() {
           src="/static/contact-banner.png"
           alt="Golf course contact background"
           fill
+          priority
           className="object-cover"
-          quality={85}
+          quality={75}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+          sizes="100vw"
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-dark-transparent-40 via-dark-transparent-60 to-dark-transparent-85"></div>
       <div className="absolute inset-0 bg-sage-900/20"></div>
       
-      <div className="relative container mx-auto px-6 py-20 md:py-32">
+      <div className="relative container mx-auto px-6 pt-32 pb-20 md:py-32">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-4 drop-shadow-2xl">

@@ -19,6 +19,9 @@ export function About() {
                 alt="Will Cannon - Professional Golfer"
                 width={600}
                 height={800}
+                quality={80}
+                placeholder="blur"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
               />
             </div>
           </div>

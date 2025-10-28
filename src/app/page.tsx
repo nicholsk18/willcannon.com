@@ -4,16 +4,48 @@ import { Career } from "@/app/components/career"
 import { About } from "@/app/components/about"
 import { ScrollReveal } from "@/app/components/scroll-reveal"
 import { SponsorSlider } from "@/app/components/sponsor-slider"
+import { StructuredData } from "@/app/components/structured-data"
 
 export const metadata: Metadata = {
-  title: "Will Cannon | Professional Golfer",
-  description: "Follow Will on his professional journey",
+  title: "Will Cannon | Professional Golfer - Korn Ferry Tour",
+  description: "Professional golfer Will Cannon competing on the Korn Ferry Tour. Follow his journey, tournament results, career highlights, and sponsorship opportunities.",
+  keywords: ["Will Cannon", "Professional Golfer", "Korn Ferry Tour", "PGA Tour", "Golf Tournament", "Professional Golf", "Golf Career", "Golf Sponsorship"],
+  authors: [{ name: "Will Cannon", url: "https://willcannon.com" }],
+  creator: "Will Cannon",
+  publisher: "Will Cannon",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://willcannon.com",
+    title: "Will Cannon | Professional Golfer - Korn Ferry Tour",
+    description: "Professional golfer competing on the Korn Ferry Tour. Follow tournament results, career highlights, and more.",
+    siteName: "Will Cannon - Professional Golfer",
+    images: [
+      {
+        url: "https://willcannon.com/static/banner-home.png",
+        width: 1920,
+        height: 1080,
+        alt: "Will Cannon - Professional Golfer",
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Will Cannon | Professional Golfer - Korn Ferry Tour",
+    description: "Professional golfer competing on the Korn Ferry Tour. Follow tournament results, career highlights, and more.",
+    images: ["https://willcannon.com/static/banner-home.png"],
+  },
+  alternates: {
+    canonical: "https://willcannon.com",
+  },
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <BannerHome />
+    <>
+      <StructuredData />
+      <main className="min-h-screen">
+        <BannerHome />
 
       <div className="relative -mt-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cream-50 to-sage-50 h-40"></div>
@@ -36,6 +68,7 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   )
 }
