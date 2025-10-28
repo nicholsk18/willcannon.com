@@ -9,13 +9,22 @@
     "start": "next start",
     "lint": "next lint",
     "update-stats": "node scripts/update-stats.mjs",
-    "deploy-build": "./scripts/deploy-build.sh"
+    "deploy-build": "./scripts/deploy-build.sh",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop willcannon.com",
+    "pm2:restart": "pm2 restart willcannon.com",
+    "pm2:reload": "pm2 reload willcannon.com",
+    "pm2:delete": "pm2 delete willcannon.com",
+    "pm2:logs": "pm2 logs willcannon.com",
+    "pm2:status": "pm2 status",
+    "pm2:monit": "pm2 monit"
   },
   "dependencies": {
     "framer-motion": "^11.15.0",
     "motion": "^11.15.0",
     "next": "15.1.3",
     "nodemailer": "^7.0.10",
+    "pm2": "^6.0.13",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
