@@ -33,7 +33,7 @@ export function GalleryGrid() {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const observerTarget = useRef<HTMLDivElement>(null)
 
-  const fetchImages = useCallback(async (page: number, category: string, reset: boolean = false) => {
+  const fetchImages = async (page: number, category: string, reset: boolean = false) => {
     if (isLoading) return
     
     setIsLoading(true)
@@ -55,13 +55,14 @@ export function GalleryGrid() {
     } finally {
       setIsLoading(false)
     }
-  }, [isLoading])
+  }
 
   useEffect(() => {
     setImages([])
     setCurrentPage(1)
     fetchImages(1, selectedCategory, true)
-  }, [selectedCategory, fetchImages])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,7 +86,8 @@ export function GalleryGrid() {
         observer.unobserve(currentTarget)
       }
     }
-  }, [currentPage, hasMore, isLoading, selectedCategory, fetchImages])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, hasMore, isLoading, selectedCategory])
 
   useEffect(() => {
     if (lightboxImage) {
