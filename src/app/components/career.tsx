@@ -58,7 +58,20 @@ export function Career() {
             <div className="h-1 w-24 bg-accent-gold"></div>
           </div>
 
-          <div className="relative min-h-[200px] lg:min-h-[240px]">
+          {/* Mobile: Show all highlights */}
+          <div className="lg:hidden space-y-4">
+            {careerHighlights.map((highlight, index) => (
+              <p 
+                key={index}
+                className="text-base md:text-lg font-body text-sage-800 leading-relaxed"
+              >
+                • {highlight.text}
+              </p>
+            ))}
+          </div>
+
+          {/* Desktop: Animated carousel */}
+          <div className="hidden lg:block relative min-h-[240px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.p
                 key={currentIndex}
@@ -72,7 +85,7 @@ export function Career() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.5 }}
-                className="text-lg md:text-xl lg:text-2xl font-body text-sage-800 leading-relaxed"
+                className="text-xl lg:text-2xl font-body text-sage-800 leading-relaxed"
               >
                 {careerHighlights[currentIndex].text}
               </motion.p>

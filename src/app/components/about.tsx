@@ -9,8 +9,8 @@ export function About() {
   return (
     <section className="w-full z-10 py-12 lg:py-16">
       <div className="flex flex-col lg:flex-row gap-16 items-center">
-        <div className="flex-1 order-2 lg:order-1">
-          <div className="relative w-full max-w-lg mx-auto">
+        <div className="w-full lg:flex-1 order-2 lg:order-1">
+          <div className="relative w-full lg:max-w-lg lg:mx-auto">
             <div className="absolute inset-0 bg-accent-gold/20 rounded-3xl translate-x-6 translate-y-6"></div>
             <div className="relative rounded-3xl overflow-hidden border-4 border-accent-gold/30 shadow-2xl">
               <Image
@@ -27,7 +27,7 @@ export function About() {
           </div>
         </div>
 
-        <div className="flex-1 space-y-6 lg:space-y-8 order-1 lg:order-2">
+        <div className="w-full lg:flex-1 space-y-6 lg:space-y-8 order-1 lg:order-2">
           <div>
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-sage-900 mb-4">About Will</h2>
             <div className="h-1 w-24 bg-accent-gold"></div>
