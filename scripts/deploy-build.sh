@@ -34,7 +34,7 @@ echo "Logs directory ready"
 echo ""
 
 echo "Step 6: Managing PM2 process..."
-if pnpm pm2:status | grep -q "willcannon.com"; then
+if pm2 list | grep -q "willcannon.com" 2>/dev/null; then
   echo "Reloading existing PM2 process..."
   pnpm pm2:reload
 else

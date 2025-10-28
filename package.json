@@ -15,6 +15,8 @@
     "pm2:restart": "pm2 restart willcannon.com",
     "pm2:reload": "pm2 reload willcannon.com",
     "pm2:delete": "pm2 delete willcannon.com",
+    "pm2:delete:all": "pm2 delete all",
+    "pm2:kill": "pm2 kill",
     "pm2:logs": "pm2 logs willcannon.com",
     "pm2:status": "pm2 status",
     "pm2:monit": "pm2 monit"
