@@ -1,5 +1,8 @@
 "use client"
 import React, { useState } from "react"
+import Image from "next/image"
+import { trackFormSubmission } from "@/util/analytics"
+import { Nav } from "@/app/components/nav"
 
 export function Contact() {
   const [form, setForm] = useState({
@@ -7,85 +10,167 @@ export function Contact() {
     email: "",
     subject: "",
     message: "",
+    honeypot: "",
   })
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState("")
 
-  function setName(event: React.ChangeEvent<HTMLInputElement>) {
-    setForm({ ...form, name: event.target.value })
-  }
-  function setEmail(event: React.ChangeEvent<HTMLInputElement>) {
-    setForm({ ...form, email: event.target.value })
-  }
-  function setSubject(event: React.ChangeEvent<HTMLInputElement>) {
-    setForm({ ...form, subject: event.target.value })
-  }
-  function setMessage(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setForm({ ...form, message: event.target.value })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  function submitForm(event: React.ChangeEvent<HTMLFormElement>) {
+  async function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    console.log(form)
+    setStatus("loading")
+    setErrorMessage("")
+
+    if (form.honeypot) {
+      setStatus("error")
+      setErrorMessage("Invalid submission detected")
+      return
+    }
+
+    try {
+      const { honeypot, ...formData } = form
+      void honeypot
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      setStatus("success")
+      trackFormSubmission("contact_form", true)
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        honeypot: "",
+      })
+
+      setTimeout(() => setStatus("idle"), 5000)
+    } catch (error) {
+      setStatus("error")
+      trackFormSubmission("contact_form", false)
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message')
+    }
   }
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      <div 
-        className="bg-no-repeat bg-cover w-full h-full top-0 bg-bottom"
-        style={{ backgroundImage: 'url(/static/contact-banner.png)' }}
-      >
-        <div className="container m-auto py-28">
-          <div className=" flex justify-center items-center h-full max-w-[650px] bg-dark-transparent-75 flex-col py-1 px-10 mx-auto">
-            <h2 className="text-[128px] font-bold text-center w-full">
-              Say Hi
+      <Nav />
+      <div className="absolute inset-0">
+        <Image
+          src="/static/contact-banner.png"
+          alt="Golf course contact background"
+          fill
+          className="object-cover"
+          quality={85}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-dark-transparent-40 via-dark-transparent-60 to-dark-transparent-85"></div>
+      <div className="absolute inset-0 bg-sage-900/20"></div>
+      
+      <div className="relative container mx-auto px-6 py-20 md:py-32">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-4 drop-shadow-2xl">
+              Let&apos;s Connect
             </h2>
+            <div className="h-1 w-24 bg-accent-gold mx-auto mb-6"></div>
+            <p className="text-base md:text-lg lg:text-xl font-body text-white/95 drop-shadow-lg">
+              Interested in sponsorship opportunities or collaborations? Get in touch.
+            </p>
+          </div>
 
-            <form
-              action=""
-              className="flex flex-col w-full gap-3 pb-5"
-              onSubmit={submitForm}
-            >
+          <div className="bg-sage-100/5 backdrop-blur-md rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl border-2 border-accent-gold/40">
+            <form className="space-y-4 md:space-y-6" onSubmit={submitForm}>
               <input
                 type="text"
+                name="honeypot"
+                value={form.honeypot}
+                onChange={handleChange}
+                style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
+              
+              <input
+                type="text"
+                id="name"
                 name="name"
                 value={form.name}
-                placeholder="Name"
-                className="w-full bg-transparent border-2 border-white px-5 placeholder:text-white focus:outline-none error"
-                onChange={e => setName(e)}
+                placeholder="Your name"
+                className="w-full bg-sage-100/20 backdrop-blur-sm border-2 border-sage-300/40 rounded-lg px-5 py-3 text-white placeholder:text-white/70 focus:outline-none focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/20 transition-all font-body"
+                onChange={handleChange}
                 required
               />
+
               <input
                 type="email"
+                id="email"
                 name="email"
                 value={form.email}
-                placeholder="Email"
-                className="w-full bg-transparent border-2 border-white px-5 placeholder:text-white focus:outline-none"
-                onChange={e => setEmail(e)}
+                placeholder="your.email@example.com"
+                className="w-full bg-sage-100/20 backdrop-blur-sm border-2 border-sage-300/40 rounded-lg px-5 py-3 text-white placeholder:text-white/70 focus:outline-none focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/20 transition-all font-body"
+                onChange={handleChange}
                 required
               />
+
               <input
                 type="text"
+                id="subject"
                 name="subject"
                 value={form.subject}
-                placeholder="Subject"
-                className="w-full bg-transparent border-2 border-white px-5 placeholder:text-white focus:outline-none"
-                onChange={e => setSubject(e)}
+                placeholder="Sponsorship Inquiry"
+                className="w-full bg-sage-100/20 backdrop-blur-sm border-2 border-sage-300/40 rounded-lg px-5 py-3 text-white placeholder:text-white/70 focus:outline-none focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/20 transition-all font-body"
+                onChange={handleChange}
                 required
               />
+
               <textarea
-                name="message"
                 id="message"
-                placeholder="Message"
-                className="w-full bg-transparent border-2 border-white px-5 placeholder:text-white focus:outline-none h-56"
-                onChange={e => setMessage(e)}
-                defaultValue={form.message}
+                name="message"
+                placeholder="Tell me about your sponsorship or collaboration opportunity..."
+                className="w-full bg-sage-100/20 backdrop-blur-sm border-2 border-sage-300/40 rounded-lg px-5 py-3 text-white placeholder:text-white/70 focus:outline-none focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/20 transition-all font-body h-40 resize-none"
+                onChange={handleChange}
+                value={form.message}
                 required
               ></textarea>
-              <input
+
+              <button
                 type="submit"
-                name="submit"
-                value="Send"
-                className="bg-white text-dark-333 cursor-pointer"
-              />
+                disabled={status === "loading"}
+                className="w-full bg-accent-gold hover:bg-accent-gold-light text-white font-body font-semibold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] uppercase tracking-wider disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                {status === "loading" ? "Sending..." : "Send Message"}
+              </button>
+
+              {status === "success" && (
+                <div className="mt-4 p-4 bg-accent-gold/20 border-2 border-accent-gold rounded-lg text-center">
+                  <p className="text-white font-body font-semibold">
+                    ✓ Message sent successfully! I&apos;ll get back to you soon.
+                  </p>
+                </div>
+              )}
+
+              {status === "error" && (
+                <div className="mt-4 p-4 bg-red-500/20 border-2 border-red-500 rounded-lg text-center">
+                  <p className="text-white font-body font-semibold">
+                    ✗ {errorMessage || "Failed to send message. Please try again."}
+                  </p>
+                </div>
+              )}
             </form>
           </div>
         </div>

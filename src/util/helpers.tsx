@@ -1,4 +1,4 @@
-export function move(array: Array<any>, fromIndex: number, toIndex: number) {
+export function move<T>(array: Array<T>, fromIndex: number, toIndex: number) {
   if (
     fromIndex < 0 ||
     fromIndex >= array.length ||

@@ -1,22 +1,24 @@
 import type { Metadata } from "next"
-import { Banner } from "@/app/components/banner"
+import { ScheduleBanner } from "@/app/components/schedule-banner"
+import { SeasonStats } from "@/app/components/season-stats"
+import { ScheduleTimeline } from "@/app/components/schedule-timeline"
 
 export const metadata: Metadata = {
-  title: "Will Cannon | Professional Golfer",
-  description: "Follow Will on his professional journey",
+  title: "Schedule | Will Cannon - Professional Golfer",
+  description: "Follow Will Cannon's tournament schedule and competitive journey throughout the professional golf season.",
 }
 
 export default function SchedulePage() {
   return (
-    <>
-      <Banner bgImage="/static/banner-home.png" />
-
-      {/*<div className="bg-section px-20 py-28 overflow-hidden">*/}
-      {/*  <Career />*/}
-      {/*  <About />*/}
-      {/*</div>*/}
-
-      {/*<Contact />*/}
-    </>
+    <main className="min-h-screen">
+      <ScheduleBanner 
+        bgImage="/static/banner-schedule.png" 
+        title="Schedule" 
+      />
+      
+      <SeasonStats />
+      
+      <ScheduleTimeline />
+    </main>
   )
 }
