@@ -1,6 +1,7 @@
 import "./globals.css"
 
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { Playfair_Display, Inter } from "next/font/google"
 import { Footer } from "@/app/components/footer"
 import { GoogleAnalytics } from "@/app/components/google-analytics"
@@ -72,7 +73,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
-        <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
         {children}
         <Footer />
       </body>

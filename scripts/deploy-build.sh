@@ -9,6 +9,11 @@ echo "Starting deploy build process..."
 echo ""
 
 echo "Step 1: Running linter..."
+pnpm install
+echo "Installation complete"
+echo ""
+
+echo "Step 1: Running linter..."
 pnpm run lint
 echo "Linting complete"
 echo ""
