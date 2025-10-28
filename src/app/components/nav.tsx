@@ -142,13 +142,16 @@ export function Nav() {
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className={`block text-xl font-body font-medium transition-all py-4 rounded-lg uppercase tracking-wider ${
+                        className={`block text-xl font-body font-medium transition-all py-4 px-4 rounded-lg uppercase tracking-wider relative ${
                           isActive(link.href)
-                            ? "text-accent-gold bg-white/10"
+                            ? "text-accent-gold"
                             : "text-white/90 hover:text-accent-gold hover:bg-white/5"
                         }`}
                       >
                         {link.label}
+                        {isActive(link.href) && (
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent-gold rounded-r"></span>
+                        )}
                       </Link>
                     </motion.div>
                   ))}
