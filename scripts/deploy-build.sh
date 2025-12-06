@@ -13,11 +13,6 @@ pnpm install
 echo "Installation complete"
 echo ""
 
-echo "Step 1: Running linter..."
-pnpm run lint
-echo "Linting complete"
-echo ""
-
 echo "Step 2: Updating statistics..."
 node scripts/update-stats.mjs
 echo "Stats updated"
