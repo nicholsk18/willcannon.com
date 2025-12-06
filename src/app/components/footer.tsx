@@ -36,13 +36,13 @@ export function Footer() {
           <div>
             <h4 className="font-body font-semibold text-white mb-2 md:mb-3 uppercase tracking-wider text-xs md:text-sm">Connect</h4>
             <div className="flex flex-col space-y-1.5 md:space-y-2">
-              <a href="#" className="font-body text-xs md:text-sm hover:text-accent-gold transition-colors">
+              <a href="https://www.instagram.com/willcvnnon" className="font-body text-xs md:text-sm hover:text-accent-gold transition-colors">
                 Instagram
               </a>
-              <a href="#" className="font-body text-xs md:text-sm hover:text-accent-gold transition-colors">
-                Twitter
+              <a href="https://x.com/wIllcvnnon" className="font-body text-xs md:text-sm hover:text-accent-gold transition-colors">
+                X
               </a>
-              <a href="#" className="font-body text-xs md:text-sm hover:text-accent-gold transition-colors">
+              <a href="https://www.facebook.com/will.cannon.370" className="font-body text-xs md:text-sm hover:text-accent-gold transition-colors">
                 Facebook
               </a>
             </div>

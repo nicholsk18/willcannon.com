@@ -1,0 +1,44 @@
+image: node:20-alpine
+
+stages:
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+# STEP 1: Build stage
+build:
+  stage: build
+  script:
+    - npm install -g pnpm
+    - pnpm install
+    - pnpm run build
+  artifacts:
+    paths:
+      - .next/
+      - node_modules/
+    expire_in: 1 hour
+  only:
+    refs:
+      - master
+  tags:
+    - shared
+
+# STEP 2: Deploy stage
+deploy:
+  stage: deploy
+  script:
+    - ssh karson-vps "cd $VPS_PATH && git pull origin master && pnpm install && pnpm run deploy-build"
+  only:
+    refs:
+      - master
+  dependencies:
+    - build
+  tags:
+    - shared
