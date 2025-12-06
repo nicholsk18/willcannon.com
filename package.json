@@ -7,7 +7,6 @@
     "prebuild": "node scripts/update-stats.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "update-stats": "node scripts/update-stats.mjs",
     "deploy-build": "./scripts/deploy-build.sh",
     "pm2:start": "pm2 start ecosystem.config.js",
